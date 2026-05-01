@@ -37,9 +37,11 @@ function RegisterPage() {
       setName("");
       setEmail("");
       setPassword("");
-    } catch (error) {
-      setErrorMessage("Registration failed.please try again");
-    } finally {
+   } catch (error: any) {
+  const msg = error?.response?.data?.message;
+  setErrorMessage(Array.isArray(msg) ? msg.join(", ") : msg || "Registration failed. Please try again");
+}
+ finally {
       setLoading(false);
     }
   };
@@ -65,7 +67,7 @@ function RegisterPage() {
 
           <TextField
             fullWidth
-            label="Name"
+            label="Email"
             margin="normal"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -73,7 +75,7 @@ function RegisterPage() {
 
           <TextField
             fullWidth
-            label="Name"
+            label="Password"
             margin="normal"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
